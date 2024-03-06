@@ -49,7 +49,7 @@ SECTIONS
     __exidx_end = .;
     __etext = .;
     _sidata = .;
-    .data : AT (__etext)
+    .data :
     {
         __data_start__ = .;
         _sdata = .;
@@ -73,7 +73,7 @@ SECTIONS
         . = ALIGN(8);
         __data_end__ = .;
         _edata = .;
-    } > RAM
+    } > RAM AT> FLASH
     .uninitialized (NOLOAD):
     {
         . = ALIGN(32);
