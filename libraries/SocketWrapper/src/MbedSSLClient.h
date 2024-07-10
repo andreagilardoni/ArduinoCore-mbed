@@ -62,6 +62,8 @@ private:
     mbed::BlockDevice* root = mbed::BlockDevice::get_default_instance();
     err = root->init();
     if( err != 0) {
+      Serial.print("root->init(): ");
+      Serial.println(err);
       return err;
     }
 
@@ -70,17 +72,23 @@ private:
 
     err = wifi.mount(&wifi_data);
     if (err) {
+      Serial.print("wifi.mount()");
+      Serial.println(err);
       return err;
     }
 
     err = ((TLSSocket*)sock)->set_root_ca_cert_path("/wlan/");
     if( err != NSAPI_ERROR_OK) {
+      Serial.print("sock->set_root_ca_cert_path()");
+      Serial.println(err);
       return err;
     }
 #endif
 
     if(_ca_cert_custom != NULL) {
       err = ((TLSSocket*)sock)->append_root_ca_cert(_ca_cert_custom);
+      Serial.print("sock->append_root_ca_cert()");
+      Serial.println(err);
     }
     return err;
   }
